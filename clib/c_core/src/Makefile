@@ -31,7 +31,7 @@ COPT = -fPIC -ansi -Wall -pedantic -g -DGUNZIP_SUPPORT -finline-functions
 # Note: xml2-config is installed with libxml2
 # When you compile code you need to link to libxml2 with -lxml2
 # Comment out this line if you do not require PDBML (XML) support
-COPT := $(COPT) -D XML_SUPPORT $(shell xml2-config --cflags)
+#COPT := $(COPT) -D XML_SUPPORT $(shell xml2-config --cflags)
 
 # Use single letter check for filetype
 # Only check first character of file when detecting file type (compressed
