@@ -1,179 +1,105 @@
-BiopLib
-=======
-
-                    (c) 1990-2016 SciTech Software
-                       Dr. Andrew C.R. Martin,
-                  UCL and The University of Reading
-
-                     EMail: andrew@bioinf.org.uk
-
-
+# BiopLib Python
+A Python interface for [**BiopLib**](http://bioinf.org.uk/software/bioplib/) version 3.45 
 
 Bioplib is a library of routines for the manipulation of protein
 structure and sequence using the C programming language. In addition,
-the term `Bioplib' refers to routines for more general C programming
+the term "**Bioplib**" refers to routines for more general C programming
 purposes.
 
-This library is copyright (c) 1990-2016 and was mostly originally
-written by Dr. Andrew C.R. Martin while self-employed. Many
-enhancements and some additional routines have been written while at
-The University of Reading (2000-2003) and at UCL (1993-1999 and 2004
-onwards).
+This is a **Python** wrapper for 
 
-BiopLib is licensed under the GPL Version 3. Commercial licences are
-also available - see COPYING.DOC.
+Based on BiopLib for C: 
 
+> &copy; 1990-2016 SciTech Software <br/>
+> Dr. Andrew C.R. Martin <br/>
+> UCL and The University of Reading <br/>
+> EMail: andrew@bioinf.org.uk <br/>
 
-INSTALLATION INSTRUCTIONS
--------------------------
 
-####(1) Install libxml2
+Python interface developed by:
+> Pouria Hadjibagheri <br/>
+> Birkbeck, University of London / SysMIC, UCL <br/>
 
-By default, PDBML (XML) format files are supported. If you wish to do
-this, you need to install libxml2
+Also see:
 
-If you do not need PDBML (XML) support, then you can skip this step.
+- Original [copyright notice and disclaimer](https://github.com/ACRMGroup/bioplib/blob/master/README.md).
+- C library repository on [GitHUB](https://github.com/ACRMGroup/bioplib/).
+- Documentations for C on Dr Andrew C R Martin's Bioinformatics Group [website](http://bioinf.org.uk/software/bioplib/bioplib/doc/html/index.html).  
 
-This will normally be already installed and available on Linux
-systems. If not then it is installed on Fedora/CentOS systems using
-(as root):
+The library has other equivalents such as [BioPython](https://github.com/biopython/biopython.github.io/) 
+in Python, [BioPerl](https://github.com/bioperl) in Perl, 
+and another C library and tool-set (EMBOSS).
 
-        yum -y install libxml2 libxml2-devel
+However, the focus of all these other libraries is on protein and DNA sequence rather
+than structure. Conversely, **Bioplib** is a very comprehensive library for handling
+protein structure, with some support for protein and DNA sequences. The fact that the
+code is implemented in C means that it is ideal for more complex and CPU-intensive
+tasks since C (unlike Perl and Python) is a compiled language.
 
-or on Debian/Ubuntu systems using:
 
-        sudo apt-get install libxml2 libxml2-dev
+## Installation
 
-On other systems, you will need to install libxml2 manually from 
-http://xmlsoft.org/downloads.html
+Download the repository and follow the instructions:
 
+```bash
+git clone ...
+```  
 
-####(2) Unpack the BiopLib distribution file
+```bash
+cd bioplib
+python3 setup.py
+```
+This will install both the Python interface and its C dependencies. You will 
+need a C compiler (e.g. `gcc` or `clang`) already installed on your operating 
+system to complete the process.
 
-If you have downloaded a gzipped tar file, do:
 
-        zcat bioplib-X.Y.tar.gz | tar -xvf -
--or-
+## Licence
 
-        gunzip bioplib-X.Y.tar.gz
-        tar -xvf bioplib-X.Y.tar
--or- (if you have Gnu tar)
+BiopLib, the original library and the Python interface, are both licensed 
+under the **GPLv3**. See the file `LICENCE.md` for additional information.
 
-        tar -zxvf bioplib-X.Y.tar.gz
+This program is free software: you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation, either
+version 3 of the License, or (at your option) any later version.
 
-(where X.Y is the major and minor version numbers - e.g. 3.0)
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-If you have chosen to download a ZIP file, unpack this using
+Commercial licences are also available - 
+see [COPYING](https://github.com/ACRMGroup/bioplib/blob/master/COPYING.DOC) 
+for additional information.
 
-        unzip bioplib-X.Y.zip
 
-This will create a directory called bioplib-X.Y
+### Prospective implementations
 
-Enter this directory and then go into the src sub-directory:
+#### libxml2
 
-        cd bioplib-X.Y/src
+The C library supports PDBML. This tool has not been adapted in the 
+Python interface, but is in our _To Do_ list. 
 
+By default, PDBML (XML) format files are supported by the C library, but 
+the usage requires the installation of `libxml2`. We are reviewing the 
+pros and cons to determine as to whether we should stick with this approach
+in `libxml2` or leverage Python-based tools and develop a brand-new parser 
+for PDBML.  
 
 
-####(3) By default, BiopLib will be installed in sub-directories of your home directory
+#### Documentations
+Both the original C library and the Python interface source codes are 
+well commented and documented. 
 
-These directories will be created when you install BiopLib if they do
-not exist already:
+Formal documentations for **Bioplib Python** will be compiled and made 
+available once the initial stage of the development is finished.
 
-        ~/include
-        ~/include/bioplib
-        ~/lib
-        ~/data
 
-You can also choose to install the files elsewhere, but need to modify
-the Makefile as described below.
+#### Contributions
+Please feel free to fork the repository to implement the outstanding 
+tools and make pull requests. 
 
-
-
-####(4) Modify the configuration
-
-If you are using the GNU C compiler and wish to install BiopLib in the
-default directories and provide PDBML (XML) support, no configuration
-changes should be needed and this section can be skipped.
-
-Otherwise, modify the Makefile as required for your system. 
-
-If you have chosen alternative locations for the include, library and data
-directories then you will need to change:
-
-- LIBDEST to the directory where you wish to install the static libraries
-- INCDEST to the directory where you wish to install the include files
-- DATADEST to the directory where you wish to install the data file
-
-Note that the complete path is required, you cannot do ~/lib.
-
-If you wish to use dynamic libraries (see 'Additional installation
-options', below), you may also wish to change their location by
-changing:
-
-- SHAREDLIBDEST to the directory where you wish to install the shared libraries
-
-If you do **not** require PDBML (XML) support, comment out the relevant 
-COPT line from the Makefile.
-
-
-
-####(5) Type the commands:
-
-        make 
-        make doxygen
-        make install
-        make installdata
-
-
-
-
-####(6) Set environment variables
-
-If you are using BiopLib routines that access BiopLib data directories, you must set the environment variable DATADIR to point to the directory in which you have installed the BiopLib data files (default $HOME/data)
-
-        sh/bash:
-           export DATADIR=$HOME/data
-
-        csh/tcsh:
-           setenv DATADIR $HOME/data
-(This command should be placed in your .bashrc, .profile, .tcsh or .cshrc file as appropriate for your shell.)
-
-If you are using the BiopLib interactive help support in your
-programs, you must set the environment variable HELPDIR to point to
-the directory in which you have installed the BiopLib help files
-(default $HOME/help)
-
-        sh/bash:
-           export HELPDIR=$HOME/data
-
-        csh/tcsh:
-           setenv HELPDIR $HOME/data
-(This command should be placed in your .bashrc, .profile, .tcsh or .cshrc file as appropriate for your shell.)
-
-
-
-
-####(7) Additional installation options
-
-You can use BiopLib as a set of shared libraries:
-
-        make shared
-        make installshared
-
-You can clean up your compilation directory with:
-
-        make clean
-
-
-
-
-####(8) For more information on using BiopLib, read the file:
-
-        bioplib-X.Y/doc/doxygen/docsrcinput/page_01.dox
-
-or, after doing 'make doxygen', read the formatted version by pointing
-a web browser at:
-
-        bioplib-X.Y/doc/html/index.html
-
+Coding style (and nomenclature in for Python-accessible declarations) 
+should be strictly based on 
+[Python PEP 8: Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
+ 
+Development of direct interactions with the C library requires `cython>=0.25`.
