@@ -1,15 +1,13 @@
 language: python
 sudo: false
 
-matrix:
-    include:
-        - python: 3.4
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
 
-        - python: 3.5
+# Install extensions:
+install: python3.6 setup.py install
 
-        - python: 3.6
-
-install:
-  - python3.6 setup.py install
-
+# Run tests:
 script: python3.6 bioplib.py
