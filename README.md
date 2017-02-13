@@ -44,7 +44,7 @@ tasks since C (unlike Perl and Python) is a compiled language.
 Download the repository and follow the instructions:
 
 ```bash
-git clone ...
+git clone https://github.com/xenatisch/bioplib.git
 ```  
 
 ```bash
