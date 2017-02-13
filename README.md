@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/xenatisch/bioplib.svg?branch=master)](https://travis-ci.org/xenatisch/bioplib)
+
 # BiopLib Python
 A Python interface for [**BiopLib**](http://bioinf.org.uk/software/bioplib/) version 3.45 
 
